@@ -1,0 +1,123 @@
+﻿  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Match Updates</title>
+
+  <!-- CSS START -->
+  <style>
+    body {
+      background: #0f172a;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .match-card {
+      background: #020617;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      font-size: 40px;
+      margin: 10px 0;
+    }
+
+    .status {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #38bdf8;
+    }
+
+    .time {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #94a3b8;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+  <!-- CSS END -->
+
+</head>
+<body>
+
+  <div class="match-card">
+    <h1>Team A 🆚 Team B</h1>
+
+    <div class="score" id="score">0 - 0</div>
+    <div class="status" id="status">Match Not Started</div>
+    <div class="time" id="time">Time: 00:00</div>
+
+    <button onclick="startMatch()">Start Match</button>
+    <button onclick="updateScore()">Update Score</button>
+    <button onclick="endMatch()">End Match</button>
+  </div>
+
+  <!-- JAVASCRIPT START -->
+  <script>
+    let teamA = 0;
+    let teamB = 0;
+    let seconds = 0;
+    let timer = null;
+
+    function startMatch() {
+      document.getElementById("status").innerText = "Live";
+
+      if (timer === null) {
+        timer = setInterval(() => {
+          seconds++;
+          let min = Math.floor(seconds / 60);
+          let sec = seconds % 60;
+
+          document.getElementById("time").innerText =
+            "Time: " +
+            String(min).padStart(2, "0") + ":" +
+            String(sec).padStart(2, "0");
+        }, 1000);
+      }
+    }
+
+    function updateScore() {
+      teamA += Math.floor(Math.random() * 2);
+      teamB += Math.floor(Math.random() * 2);
+
+      document.getElementById("score").innerText =
+        teamA + " - " + teamB;
+    }
+
+    function endMatch() {
+      document.getElementById("status").innerText = "Full Time";
+      clearInterval(timer);
+      timer = null;
+    }
+  </script>
+  <!-- JAVASCRIPT END -->
+
+</body>
+</html>
